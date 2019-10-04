@@ -4,12 +4,14 @@ require('dotenv').config({
 
 const express = require('express');
 const mongoose = require('mongoose');
+
+const morgan = require('morgan');
 const routes = require('./routes');
 
 const app = express();
 
 mongoose.connect(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-wgkm2.mongodb.net/admin?retryWrites=true&w=majority`,
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0-wgkm2.mongodb.net/omnistack-9?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -17,5 +19,6 @@ mongoose.connect(
 );
 
 app.use(express.json());
+app.use(morgan('dev'));
 app.use(routes);
 app.listen(process.env.PORT || 3333);
